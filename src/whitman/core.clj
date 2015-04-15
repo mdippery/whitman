@@ -1,4 +1,4 @@
-(ns karmabot.core
+(ns whitman.core
   (:gen-class))
 
 (defn -main [& args]
