@@ -1,0 +1,17 @@
+{
+    "database": "karmanaut",
+    "collection": "samples",
+    "user-agent": "karmanaut/%s by mipadi - michael@monkey-robot.com",
+    "source": "http://www.reddit.com/user/%s/about.json",
+    "records": "users._id",
+    "data": [
+        {
+            "path": "data.link_karma",
+            "key": "link_karma"
+        },
+        {
+            "path": "data.comment_karma",
+            "key": "comment_karma"
+        }
+    ]
+}
