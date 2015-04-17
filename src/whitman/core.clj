@@ -10,4 +10,7 @@
 (defn -main [& args]
   (if (< (count args) 1)
       (exit 1 "No configuration file specified")
-      (println (json/read-str (slurp (nth args 0))))))
+      (-> (nth args 0)
+          slurp
+          json/read-str
+          println)))
