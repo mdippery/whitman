@@ -5,7 +5,8 @@
   :url "https://github.com/mdippery/whitman"
   :license {:name "3-Clause BSD"
             :url "http://opensource.org/licenses/BSD-3-Clause"}
-  :dependencies [[org.clojure/clojure "1.6.0"]]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/data.json "0.2.6"]]
   :main ^:skip-aot whitman.core
   :target-path "target/%s"
   :jar-name "whitman.jar"

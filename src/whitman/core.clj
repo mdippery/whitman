@@ -1,4 +1,5 @@
 (ns whitman.core
+  (:require [clojure.data.json :as json])
   (:gen-class))
 
 (defn exit [code msg]
@@ -9,4 +10,4 @@
 (defn -main [& args]
   (if (< (count args) 1)
       (exit 1 "No configuration file specified")
-      (println "Hello, world!")))
+      (println (json/read-str (slurp (nth args 0))))))
