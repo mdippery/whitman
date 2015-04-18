@@ -7,3 +7,9 @@
   (let [host (get cfg "connection" default-db-host)
         db (get cfg "database")]
     (str "mongodb://" host "/" db)))
+
+(defn db [cfg]
+  (-> cfg
+      db-url
+      mg/connect-via-uri
+      :db))
