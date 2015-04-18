@@ -1,5 +1,5 @@
 (ns whitman.core
-  (:require [clojure.data.json :as json])
+  (:require [whitman.config :as config])
   (:gen-class))
 
 (defn exit [code msg]
@@ -11,7 +11,6 @@
   (if (< (count args) 1)
       (exit 1 "No configuration file specified")
       (let [cfg (-> (nth args 0)
-                    slurp
-                    json/read-str)
+                    config/read-config)
             user-agent (get cfg "user-agent")]
-        (println user-agent))))
+        (println cfg))))
