@@ -29,3 +29,5 @@
   (nth obj (Integer. k)))
 (defmethod get-value clojure.lang.PersistentArrayMap [obj k]
   (get obj k))
+(defmethod get-value clojure.lang.PersistentHashMap [obj k]
+  (get obj k))
