@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [whitman.config :as config]))
 
-(deftest test-read-config
+(deftest test-read-reddit-config
   (let [cfg (config/read-config "doc/reddit.json")
         data (get cfg "data")]
     (is (= (get cfg "database") "karmanaut"))
@@ -15,3 +15,15 @@
     (is (= (get (nth data 0) "key") "link_karma"))
     (is (= (get (nth data 1) "path") "data.comment_karma"))
     (is (= (get (nth data 1) "key") "comment_karma"))))
+
+(deftest test-read-stackoverflow-config
+  (let [cfg (config/read-config "doc/stackoverflow.json")
+        data (get cfg "data")]
+    (is (= (get cfg "database") "chameleon"))
+    (is (= (get cfg "collection") "samples"))
+    (is (= (get cfg "user-agent") "whitman/0.1.0-SNAPSHOT"))
+    (is (= (get cfg "source") "http://api.stackexchange.com/2.2/users/%s?site=stackoverflow"))
+    (is (= (get cfg "records") "users._id"))
+    (is (= (count data) 1))
+    (is (= (get (nth data 0) "path") "items.0.reputation"))
+    (is (= (get (nth data 0) "key") "reputation"))))
