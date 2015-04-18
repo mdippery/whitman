@@ -14,6 +14,9 @@
     (with-redefs [data/all-records (fn [cfg] [{:_id "mipadi"}])]
       (is (= (data/records cfg) ["mipadi"])))))
 
+(deftest test-path-components
+  (is (= (data/path-components "items.0.reputation") ["items", "0", "reputation"])))
+
 (deftest test-get-value-with-vector
   (is (= (data/get-value [{"reputation" 150000}] "0") {"reputation" 150000})))
 

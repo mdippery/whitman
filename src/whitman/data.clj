@@ -21,6 +21,9 @@
         recs (all-records cfg)]
     (map #(key %) recs)))
 
+(defn path-components [keypath]
+  (string/split keypath #"\."))
+
 (defmulti get-value (fn [obj k] (type obj)))
 (defmethod get-value clojure.lang.PersistentVector [obj k]
   (nth obj (Integer. k)))
