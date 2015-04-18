@@ -1,4 +1,4 @@
 (ns whitman.client)
 
-(def url-for-user [cfg user]
-  (format (get cfg "source") user))
+(def format-url [url user]
+  (format url user))
