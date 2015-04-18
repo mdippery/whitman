@@ -7,7 +7,7 @@
         data (get cfg "data")]
     (is (= (get cfg "database") "karmanaut"))
     (is (= (get cfg "collection") "samples"))
-    (is (= (get cfg "user-agent") "karmanaut/%s by mipadi - michael@monkey-robot.com"))
+    (is (= (get cfg "user-agent") "karmanaut/0.1.0-SNAPSHOT by mipadi - michael@monkey-robot.com"))
     (is (= (get cfg "source") "http://www.reddit.com/user/%s/about.json"))
     (is (= (get cfg "records") "users._id"))
     (is (= (count data) 2))
