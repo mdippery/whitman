@@ -10,7 +10,6 @@
 (defn -main [& args]
   (if (< (count args) 1)
       (exit 1 "No configuration file specified")
-      (let [cfg (-> (nth args 0)
-                    config/read-config)
-            user-agent (get cfg "user-agent")]
-        (println cfg))))
+      (-> (nth args 0)
+          config/read-config
+          println)))
