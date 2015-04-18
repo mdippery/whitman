@@ -13,3 +13,9 @@
              "records" "users._id"}]
     (with-redefs [data/all-records (fn [cfg] [{:_id "mipadi"}])]
       (is (= (data/records cfg) ["mipadi"])))))
+
+(deftest test-get-value-with-vector
+  (is (= (data/get-value [{"reputation" 150000}] "0") {"reputation" 150000})))
+
+(deftest test-get-value-with-map
+  (is (= (data/get-value {"link_karma" 5000} "link_karma") 5000)))

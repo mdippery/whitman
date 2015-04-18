@@ -20,3 +20,9 @@
         key (keyword (record-key kp))
         recs (all-records cfg)]
     (map #(key %) recs)))
+
+(defmulti get-value (fn [obj k] (type obj)))
+(defmethod get-value clojure.lang.PersistentVector [obj k]
+  (nth obj (Integer. k)))
+(defmethod get-value clojure.lang.PersistentArrayMap [obj k]
+  (get obj k))
