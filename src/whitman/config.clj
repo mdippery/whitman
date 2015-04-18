@@ -12,7 +12,4 @@
     (assoc cfg "user-agent" user-agent)))
 
 (defn read-config [path]
-  (-> path
-      slurp
-      json/read-str
-      format-config))
+  (-> path slurp json/read-str format-config))

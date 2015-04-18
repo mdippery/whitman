@@ -12,7 +12,4 @@
     (http/get url params)))
 
 (defn request [cfg user]
-  (->> user
-       (full-request cfg)
-       :body
-       json/read-str))
+  (->> user (full-request cfg) :body json/read-str))

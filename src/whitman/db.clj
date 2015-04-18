@@ -9,7 +9,4 @@
     (str "mongodb://" host "/" db)))
 
 (defn db [cfg]
-  (-> cfg
-      db-url
-      mg/connect-via-uri
-      :db))
+  (-> cfg db-url mg/connect-via-uri :db))
