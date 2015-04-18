@@ -1,5 +1,6 @@
 (ns whitman.data-test
   (:require [clojure.test :refer :all]
+            [clojure.data.json :as json]
             [whitman.data :as data]))
 
 (deftest test-record-collection
@@ -22,3 +23,12 @@
 
 (deftest test-get-value-with-map
   (is (= (data/get-value {"link_karma" 5000} "link_karma") 5000)))
+
+(deftest test-reduce-data-with-reddit
+  (let [data (json/read-str (slurp "fixtures/reddit_mipadi.json"))]
+    (is (= (data/reduce-data data "data.link_karma") 4883))
+    (is (= (data/reduce-data data "data.comment_karma") 29020))))
+
+(deftest test-reduce-data-with-stackoverflow
+  (let [data (json/read-str (slurp "fixtures/stackoverflow_28804.json"))]
+    (is (= (data/reduce-data data "items.0.reputation") 158194))))

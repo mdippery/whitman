@@ -31,3 +31,6 @@
   (get obj k))
 (defmethod get-value clojure.lang.PersistentHashMap [obj k]
   (get obj k))
+
+(defn reduce-data [data path]
+  (reduce get-value data (path-components path)))
