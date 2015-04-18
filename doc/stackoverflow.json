@@ -2,7 +2,7 @@
     "database": "chameleon",
     "collection": "samples",
     "source": "http://api.stackexchange.com/2.2/users/%s?site=stackoverflow",
-    "records": "users._id",
+    "records": "users._id:int",
     "data": [
         {
             "path": "items.0.reputation",

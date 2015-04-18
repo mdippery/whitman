@@ -10,7 +10,11 @@
   (key-component keypath 0))
 
 (defn record-key [keypath]
-  (key-component keypath 1))
+  (let [k (key-component keypath 1)]
+    (nth (string/split k #":") 0)))
+
+(defn int-key? [keypath]
+  (> (count (string/split keypath #":")) 1))
 
 (defn ^{:private true} all-records [cfg]
   (mc/find-maps (db/db cfg) (record-collection (get cfg "records"))))
@@ -18,8 +22,11 @@
 (defn records [cfg]
   (let [kp (get cfg "records")
         key (keyword (record-key kp))
-        recs (all-records cfg)]
-    (map #(key %) recs)))
+        recs (all-records cfg)
+        ids (map #(key %) recs)]
+    (if (int-key? kp)
+        (map int ids)
+        ids)))
 
 (defn path-components [keypath]
   (string/split keypath #"\."))

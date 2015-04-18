@@ -23,7 +23,7 @@
     (is (= (get cfg "collection") "samples"))
     (is (= (get cfg "user-agent") "whitman/0.1.0-SNAPSHOT"))
     (is (= (get cfg "source") "http://api.stackexchange.com/2.2/users/%s?site=stackoverflow"))
-    (is (= (get cfg "records") "users._id"))
+    (is (= (get cfg "records") "users._id:int"))
     (is (= (count data) 1))
     (is (= (get (nth data 0) "path") "items.0.reputation"))
     (is (= (get (nth data 0) "key") "reputation"))))

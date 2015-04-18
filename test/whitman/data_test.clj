@@ -6,14 +6,29 @@
 (deftest test-record-collection
   (is (= (data/record-collection "users._id") "users")))
 
+(deftest test-int-key-with-string
+  (is (not (data/int-key? "users._id"))))
+
+(deftest test-int-key-with-int
+  (is (data/int-key? "users._id:int")))
+
 (deftest test-record-key
   (is (= (data/record-key "users._id") "_id")))
 
-(deftest test-records
+(deftest test-record-key-with-int
+  (is (= (data/record-key "users._id:int") "_id")))
+
+(deftest test-records-with-string-ids
   (let [cfg {"database" "karmanaut"
              "records" "users._id"}]
     (with-redefs [data/all-records (fn [cfg] [{:_id "mipadi"}])]
       (is (= (data/records cfg) ["mipadi"])))))
+
+(deftest test-records-with-int-ids
+  (let [cfg {"database" "chameleon"
+             "records" "users._id:int"}]
+    (with-redefs [data/all-records (fn [cfg] [{:_id 28804.0}])]
+      (is (= (data/records cfg) [28804])))))
 
 (deftest test-path-components
   (is (= (data/path-components "items.0.reputation") ["items", "0", "reputation"])))
