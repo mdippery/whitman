@@ -1,4 +1,4 @@
-(ns whitman.data
+(ns whitman.crawler
   (:require [clojure.string :as string]
             [monger.collection :as mc]
             [whitman.db :as db]
