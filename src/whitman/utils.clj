@@ -24,3 +24,6 @@
       (.set Calendar/SECOND 0)
       (.set Calendar/MILLISECOND 0))
     (.getTime c)))
+
+(defn seconds-since-epoch [dt]
+  (quot (.getTime dt) 1000))
