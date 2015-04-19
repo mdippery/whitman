@@ -1,7 +1,12 @@
 (ns whitman.data-test
   (:require [clojure.test :refer :all]
             [clojure.data.json :as json]
-            [whitman.data :as data]))
+            [whitman.data :as data]
+            [whitman.utils :as utils])
+  (:import [java.util Date]))
+
+(def default-milliseconds 1429418496343)
+(def default-date (Date. default-milliseconds))
 
 (deftest test-record-collection
   (is (= (data/record-collection "users._id") "users")))
@@ -47,3 +52,9 @@
 (deftest test-reduce-data-with-stackoverflow
   (let [data (json/read-str (slurp "fixtures/stackoverflow_28804.json"))]
     (is (= (data/reduce-data data "items.0.reputation") 158194))))
+
+(deftest test-sample-query
+  (with-redefs [utils/utcnow (fn [] default-date)]
+    (let [q (data/sample-query 28804)]
+      (is (= (:user q) 28804))
+      (is (= (:timestamp q) (utils/midnight default-date))))))

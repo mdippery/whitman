@@ -1,7 +1,8 @@
 (ns whitman.data
   (:require [clojure.string :as string]
             [monger.collection :as mc]
-            [whitman.db :as db]))
+            [whitman.db :as db]
+            [whitman.utils :as utils]))
 
 (defn ^{:private true} key-component [key i]
   (nth (string/split key #"\.") i))
@@ -41,3 +42,6 @@
 
 (defn reduce-data [data path]
   (reduce get-value data (path-components path)))
+
+(defn sample-query [user]
+  {:user user, :timestamp (utils/midnight (utils/utcnow))})
