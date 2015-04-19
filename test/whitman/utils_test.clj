@@ -29,3 +29,7 @@
 (deftest test-seconds-since-epoch
   (let [delta (utils/seconds-since-epoch default-date)]
     (is (= delta default-seconds))))
+
+(deftest test-hours-since-midnight
+  (let [delta (utils/hours-since-midnight default-date)]
+    (is (= delta 4))))

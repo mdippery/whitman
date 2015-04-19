@@ -27,3 +27,9 @@
 
 (defn seconds-since-epoch [dt]
   (quot (.getTime dt) 1000))
+
+(defn hours-since-midnight [dt]
+  (let [mn (midnight dt)
+        mnsec (seconds-since-epoch mn)
+        dtsec (seconds-since-epoch dt)]
+    (quot (- dtsec mnsec) (* 60 60))))
