@@ -58,3 +58,10 @@
     (let [q (data/sample-query 28804)]
       (is (= (:user q) 28804))
       (is (= (:timestamp q) (utils/midnight default-date))))))
+
+(deftest test-sample-insert
+  (with-redefs [utils/utcnow (fn [] default-date)]
+    (let [doc (data/sample-insert 28804 "reputation" 150000)]
+      (is (= (count doc) 1))
+      (is (contains? doc "$set"))
+      (is (= (get doc "$set") {"reputation.4" 150000})))))

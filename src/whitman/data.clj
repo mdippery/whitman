@@ -45,3 +45,7 @@
 
 (defn sample-query [user]
   {:user user, :timestamp (utils/midnight (utils/utcnow))})
+
+(defn sample-insert [user key sample]
+  (let [hours (utils/hours-since-midnight (utils/utcnow))]
+    {"$set" {(str key "." hours) sample}}))
