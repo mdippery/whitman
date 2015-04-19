@@ -13,6 +13,17 @@
 (deftest test-version
   (is (= utils/version "0.1.0-SNAPSHOT")))
 
+(deftest test-utcnow
+  (let [now (utils/utcnow)
+        tz (TimeZone/getTimeZone "UTC")
+        cal (GregorianCalendar. tz)]
+    (.setTime cal now)
+    ; Assumes this code won't still be in use 10 years from now
+    (is (>= (.get cal Calendar/YEAR) 2015))
+    (is (< (.get cal Calendar/YEAR) 2025))
+    (is (>= (.getTime now) default-milliseconds))
+    (is (< (.getTime now) (+ default-milliseconds (* 1000 60 60 24 365 10))))))
+
 (deftest test-midnight
   (let [mn (utils/midnight default-date)
         tz (TimeZone/getTimeZone "UTC")
