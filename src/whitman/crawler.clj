@@ -1,6 +1,7 @@
 (ns whitman.crawler
   (:require [clojure.string :as string]
             [monger.collection :as mc]
+            [whitman.client :as client]
             [whitman.db :as db]
             [whitman.utils :as utils]))
 
@@ -49,3 +50,7 @@
 (defn sample-insert [user key sample]
   (let [hours (utils/hours-since-midnight (utils/utcnow))]
     {"$set" {(str key "." hours) sample}}))
+
+(defn sample-data [cfg point user]
+  (let [data (client/request cfg user)]
+    (reduce-data data (get point "path"))))

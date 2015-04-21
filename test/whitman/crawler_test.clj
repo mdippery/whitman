@@ -1,6 +1,8 @@
 (ns whitman.crawler-test
   (:require [clojure.test :refer :all]
             [clojure.data.json :as json]
+            [clj-http.client :as http]
+            [whitman.config :as config]
             [whitman.crawler :as crawler]
             [whitman.utils :as utils])
   (:import [java.util Date]))
@@ -65,3 +67,15 @@
       (is (= (count doc) 1))
       (is (contains? doc "$set"))
       (is (= (get doc "$set") {"reputation.4" 150000})))))
+
+(deftest test-sample-reddit
+  (with-redefs [http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
+    (let [cfg (config/read-config "doc/reddit.json")
+          point (nth (get cfg "data") 0)]
+      (is (= (crawler/sample-data cfg point "mipadi") 4883)))))
+
+(deftest test-sample-stackoverflow
+  (with-redefs [http/get (fn [url params] {:body (slurp "fixtures/stackoverflow_28804.json")})]
+    (let [cfg (config/read-config "doc/stackoverflow.json")
+          point (nth (get cfg "data") 0)]
+      (is (= (crawler/sample-data cfg point 28804) 158194)))))
