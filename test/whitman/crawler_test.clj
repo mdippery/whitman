@@ -72,13 +72,13 @@
   (with-redefs [http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
     (let [cfg (config/read-config "doc/reddit.json")
           point (nth (get cfg "data") 0)]
-      (is (= (crawler/sample-data cfg point "mipadi") 4883)))))
+      (is (= (crawler/sample-datapoint cfg point "mipadi") 4883)))))
 
 (deftest test-sample-stackoverflow
   (with-redefs [http/get (fn [url params] {:body (slurp "fixtures/stackoverflow_28804.json")})]
     (let [cfg (config/read-config "doc/stackoverflow.json")
           point (nth (get cfg "data") 0)]
-      (is (= (crawler/sample-data cfg point 28804) 158194)))))
+      (is (= (crawler/sample-datapoint cfg point 28804) 158194)))))
 
 (deftest test-sample-docs
   (with-redefs [utils/utcnow (fn [] default-date)

@@ -51,11 +51,11 @@
   (let [hours (utils/hours-since-midnight (utils/utcnow))]
     {"$set" {(str key "." hours) sample}}))
 
-(defn sample-data [cfg point user]
+(defn sample-datapoint [cfg point user]
   (let [data (client/request cfg user)]
     (reduce-data data (get point "path"))))
 
 (defn sample-docs [cfg point user]
   (let [key (get point "key")
-        sample (sample-data cfg point user)]
+        sample (sample-datapoint cfg point user)]
     {:query (sample-query user), :insert (sample-insert user key sample)}))
