@@ -51,17 +51,17 @@
   (let [hours (utils/hours-since-midnight now)]
     {(str key "." hours) sample}))
 
-(defn sample-datapoint [cfg point user]
-  (let [data (client/request cfg user)]
-    (reduce-data data (get point "path"))))
+(defn ^{:private true} sample-datapoint [cfg data point user]
+  (reduce-data data (get point "path")))
 
-(defn ^{:private true} sample-and-insert [now cfg user datum]
-  (sample-insert now user (get datum "key") (sample-datapoint cfg datum user)))
+(defn ^{:private true} sample-and-insert [now cfg data user datum]
+  (sample-insert now user (get datum "key") (sample-datapoint cfg data datum user)))
 
 (defn sample-docs [cfg user]
   (let [now (utils/utcnow)
+        resp (client/request cfg user)
         datapoints (get cfg "data")
         q (sample-query now user)
-        data (map #(sample-and-insert now cfg user %) datapoints)
+        data (map #(sample-and-insert now cfg resp user %) datapoints)
         ins (utils/merge-map-list data)]
     {:query q, :insert {"$set" ins}}))
