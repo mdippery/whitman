@@ -44,23 +44,24 @@
 (defn reduce-data [data path]
   (reduce get-value data (path-components path)))
 
-(defn ^{:private true} sample-query [user]
-  {:user user, :timestamp (utils/midnight (utils/utcnow))})
+(defn ^{:private true} sample-query [now user]
+  {:user user, :timestamp (utils/midnight now)})
 
-(defn ^{:private true} sample-insert [user key sample]
-  (let [hours (utils/hours-since-midnight (utils/utcnow))]
+(defn ^{:private true} sample-insert [now user key sample]
+  (let [hours (utils/hours-since-midnight now)]
     {(str key "." hours) sample}))
 
 (defn sample-datapoint [cfg point user]
   (let [data (client/request cfg user)]
     (reduce-data data (get point "path"))))
 
-(defn ^{:private true} sample-and-insert [cfg user datum]
-  (sample-insert user (get datum "key") (sample-datapoint cfg datum user)))
+(defn ^{:private true} sample-and-insert [now cfg user datum]
+  (sample-insert now user (get datum "key") (sample-datapoint cfg datum user)))
 
 (defn sample-docs [cfg user]
-  (let [datapoints (get cfg "data")
-        q (sample-query user)
-        data (map #(sample-and-insert cfg user %) datapoints)
+  (let [now (utils/utcnow)
+        datapoints (get cfg "data")
+        q (sample-query now user)
+        data (map #(sample-and-insert now cfg user %) datapoints)
         ins (utils/merge-map-list data)]
     {:query q, :insert {"$set" ins}}))
