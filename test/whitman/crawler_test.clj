@@ -80,7 +80,22 @@
           point (nth (get cfg "data") 0)]
       (is (= (crawler/sample-datapoint cfg point 28804) 158194)))))
 
-(deftest test-sample-docs
+(deftest test-sample-docs-with-one-datapoint
+  (with-redefs [utils/utcnow (fn [] default-date)
+                http/get (fn [url params] {:body (slurp "fixtures/stackoverflow_28804.json")})]
+    (let [cfg (config/read-config "doc/stackoverflow.json")
+          point (nth (get cfg "data") 0)
+          docs (crawler/sample-docs cfg point 28804)]
+      (is (= (count docs) 2))
+      (is (contains? docs :query))
+      (is (contains? docs :insert))
+      (is (= (:user (:query docs)) 28804))
+      (is (= (:timestamp (:query docs)) (utils/midnight default-date)))
+      (is (contains? (:insert docs) "$set"))
+      (is (= (count (get (:insert docs) "$set")) 2))
+      (is (= (:insert docs) {"$set" {"reputation.4" 158194}})))))
+
+(deftest test-sample-docs-with-multiple-datapoints
   (with-redefs [utils/utcnow (fn [] default-date)
                 http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
     (let [cfg (config/read-config "doc/reddit.json")
@@ -91,4 +106,6 @@
       (is (contains? docs :insert))
       (is (= (:user (:query docs)) "mipadi"))
       (is (= (:timestamp (:query docs)) (utils/midnight default-date)))
-      (is (= (:insert docs) {"$set" {"link_karma.4" 4883}})))))
+      (is (contains? (:insert docs) "$set"))
+      (is (= (count (get (:insert docs) "$set")) 2))
+      (is (= (:insert docs) {"$set" {"link_karma.4" 4883, "comment_karma.4" 29020}})))))
