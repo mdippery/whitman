@@ -55,19 +55,6 @@
   (let [data (json/read-str (slurp "fixtures/stackoverflow_28804.json"))]
     (is (= (crawler/reduce-data data "items.0.reputation") 158194))))
 
-(deftest test-sample-query
-  (with-redefs [utils/utcnow (fn [] default-date)]
-    (let [q (crawler/sample-query 28804)]
-      (is (= (:user q) 28804))
-      (is (= (:timestamp q) (utils/midnight default-date))))))
-
-(deftest test-sample-insert
-  (with-redefs [utils/utcnow (fn [] default-date)]
-    (let [doc (crawler/sample-insert 28804 "reputation" 150000)]
-      (is (= (count doc) 1))
-      (is (contains? doc "$set"))
-      (is (= (get doc "$set") {"reputation.4" 150000})))))
-
 (deftest test-sample-reddit
   (with-redefs [http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
     (let [cfg (config/read-config "doc/reddit.json")
@@ -84,23 +71,21 @@
   (with-redefs [utils/utcnow (fn [] default-date)
                 http/get (fn [url params] {:body (slurp "fixtures/stackoverflow_28804.json")})]
     (let [cfg (config/read-config "doc/stackoverflow.json")
-          point (nth (get cfg "data") 0)
-          docs (crawler/sample-docs cfg point 28804)]
+          docs (crawler/sample-docs cfg 28804)]
       (is (= (count docs) 2))
       (is (contains? docs :query))
       (is (contains? docs :insert))
       (is (= (:user (:query docs)) 28804))
       (is (= (:timestamp (:query docs)) (utils/midnight default-date)))
       (is (contains? (:insert docs) "$set"))
-      (is (= (count (get (:insert docs) "$set")) 2))
+      (is (= (count (get (:insert docs) "$set")) 1))
       (is (= (:insert docs) {"$set" {"reputation.4" 158194}})))))
 
 (deftest test-sample-docs-with-multiple-datapoints
   (with-redefs [utils/utcnow (fn [] default-date)
                 http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
     (let [cfg (config/read-config "doc/reddit.json")
-          point (nth (get cfg "data") 0)
-          docs (crawler/sample-docs cfg point "mipadi")]
+          docs (crawler/sample-docs cfg "mipadi")]
       (is (= (count docs) 2))
       (is (contains? docs :query))
       (is (contains? docs :insert))
