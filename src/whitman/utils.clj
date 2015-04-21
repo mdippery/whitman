@@ -11,9 +11,6 @@
     (-> "project.clj" slurp read-string (nth 2))
     (-> (eval 'karmanaut.utils) .getPackage .getImplementationVersion)))
 
-(defn merge-map-list [maps]
-  (reduce merge maps))
-
 (defn utcnow []
   (Date.))
 

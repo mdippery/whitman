@@ -63,5 +63,5 @@
         datapoints (get cfg "data")
         q (sample-query now user)
         data (map #(sample-and-insert now cfg resp user %) datapoints)
-        ins (utils/merge-map-list data)]
+        ins (apply merge data)]
     {:query q, :insert {"$set" ins}}))

@@ -13,10 +13,6 @@
 (deftest test-version
   (is (= utils/version "0.1.0-SNAPSHOT")))
 
-(deftest test-merge-map-list
-  (let [maps [{"comment_karma" 10}, {"link_karma" 40}]]
-    (is (= (utils/merge-map-list maps) {"comment_karma" 10, "link_karma" 40}))))
-
 (deftest test-utcnow
   (let [now (utils/utcnow)
         tz (TimeZone/getTimeZone "UTC")
