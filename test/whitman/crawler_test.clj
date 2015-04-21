@@ -79,3 +79,16 @@
     (let [cfg (config/read-config "doc/stackoverflow.json")
           point (nth (get cfg "data") 0)]
       (is (= (crawler/sample-data cfg point 28804) 158194)))))
+
+(deftest test-sample-docs
+  (with-redefs [utils/utcnow (fn [] default-date)
+                http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
+    (let [cfg (config/read-config "doc/reddit.json")
+          point (nth (get cfg "data") 0)
+          docs (crawler/sample-docs cfg point "mipadi")]
+      (is (= (count docs) 2))
+      (is (contains? docs :query))
+      (is (contains? docs :insert))
+      (is (= (:user (:query docs)) "mipadi"))
+      (is (= (:timestamp (:query docs)) (utils/midnight default-date)))
+      (is (= (:insert docs) {"$set" {"link_karma.4" 4883}})))))
