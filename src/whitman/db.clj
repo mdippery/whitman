@@ -1,5 +1,6 @@
 (ns whitman.db
-  (:require [monger.core :as mg]))
+  (:require [monger.collection :as mc]
+            [monger.core :as mg]))
 
 (def ^{:private true} default-db-host "localhost:27017")
 
@@ -10,3 +11,6 @@
 
 (defn db [cfg]
   (-> cfg db-url mg/connect-via-uri :db))
+
+(defn insert [cfg query docs]
+  (mc/upsert (db cfg) (get cfg "collection") query docs {:upsert true}))
