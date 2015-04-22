@@ -84,7 +84,7 @@ required):
   </tr>
   <tr>
     <td><code>data</code></td>
-    <td>Data points that should be crawled<td>
+    <td>Data points that should be crawled</td>
     <td>(See next table)</td>
   </tr>
 </table>
@@ -107,6 +107,7 @@ following keys:
   <tr>
     <th><code>key</code>
     <td>Document key that the sampled data should be stored under</td>
+    <td><em>Required</em></td>
   </tr>
 </table>
 
