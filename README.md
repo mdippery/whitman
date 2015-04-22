@@ -39,7 +39,7 @@ files with [lein][lein]:
 2. Populate the `users` collection in your MongoDB database with the IDs of
    the users whose data you want to record, in the following format:
 
-       {_id: <user ID>}
+         {_id: <user ID>}
 
 #### Configuration
 
