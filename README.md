@@ -74,7 +74,7 @@ required):
     <td><code>source</code></td>
     <td>URL from which samples should be pulled. It should contain one
         parameter that should be substituted with a user (or record) ID; this
-        parameter can be denoted with the placeholder `%s`.</td>
+        parameter can be denoted with the placeholder <code>%s</code>.</td>
     <td><em>Required</em></td>
   </tr>
   <tr>
