@@ -9,7 +9,7 @@
 (def version
   (if (.exists (io/as-file "project.clj"))
     (-> "project.clj" slurp read-string (nth 2))
-    (-> (eval 'karmanaut.utils) .getPackage .getImplementationVersion)))
+    (-> (eval 'whitman.utils) .getPackage .getImplementationVersion)))
 
 (defn utcnow []
   (Date.))
