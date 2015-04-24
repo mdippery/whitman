@@ -11,5 +11,15 @@
                        default-user-agent)]
     (assoc cfg "user-agent" user-agent)))
 
-(defn read-config [path]
+(defn file-format [path]
+  (let [ext (.substring path (+ (.lastIndexOf path ".") 1))]
+    (case ext
+          "ini"  :ini
+          "json" :json
+          "yaml" :yml
+          "yml"  :yml
+          nil)))
+
+(defmulti read-config file-format)
+(defmethod read-config :json [path]
   (-> path slurp json/read-str format-config))

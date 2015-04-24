@@ -27,3 +27,10 @@
     (is (= (count data) 1))
     (is (= (get (nth data 0) "path") "items.0.reputation"))
     (is (= (get (nth data 0) "key") "reputation"))))
+
+(deftest test-file-format
+  (is (= (config/file-format "about.json") :json))
+  (is (= (config/file-format "about.ini") :ini))
+  (is (= (config/file-format "about.yaml") :yml))
+  (is (= (config/file-format "about.yml") :yml))
+  (is (nil? (config/file-format "about.txt"))))
