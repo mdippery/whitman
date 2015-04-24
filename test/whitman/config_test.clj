@@ -2,6 +2,19 @@
   (:require [clojure.test :refer :all]
             [whitman.config :as config]))
 
+(deftest test-file-extension
+  (is (= (config/file-extension "about.json") "json"))
+  (is (= (config/file-extension ".bashrc") ""))
+  (is (= (config/file-extension "file") ""))
+  (is (= (config/file-extension "a.txt") "txt")))
+
+(deftest test-file-format
+  (is (= (config/file-format "about.json") :json))
+  (is (= (config/file-format "about.ini") :ini))
+  (is (= (config/file-format "about.yaml") :yml))
+  (is (= (config/file-format "about.yml") :yml))
+  (is (nil? (config/file-format "about.txt"))))
+
 (deftest test-read-reddit-config
   (let [cfg (config/read-config "doc/reddit.json")
         data (get cfg "data")]
@@ -27,10 +40,3 @@
     (is (= (count data) 1))
     (is (= (get (nth data 0) "path") "items.0.reputation"))
     (is (= (get (nth data 0) "key") "reputation"))))
-
-(deftest test-file-format
-  (is (= (config/file-format "about.json") :json))
-  (is (= (config/file-format "about.ini") :ini))
-  (is (= (config/file-format "about.yaml") :yml))
-  (is (= (config/file-format "about.yml") :yml))
-  (is (nil? (config/file-format "about.txt"))))
