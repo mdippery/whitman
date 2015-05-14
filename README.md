@@ -105,7 +105,7 @@ following keys:
     <td><em>Required</em></td>
   </tr>
   <tr>
-    <th><code>key</code>
+    <th><code>key</code></th>
     <td>Document key that the sampled data should be stored under</td>
     <td><em>Required</em></td>
   </tr>
