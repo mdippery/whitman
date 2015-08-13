@@ -20,7 +20,7 @@
         data (get cfg "data")]
     (is (= (get cfg "database") "karmanaut"))
     (is (= (get cfg "collection") "samples"))
-    (is (= (get cfg "user-agent") "karmanaut/0.1.0-SNAPSHOT by mipadi - michael@monkey-robot.com"))
+    (is (= (get cfg "user-agent") "karmanaut/1.0.0 by mipadi - michael@monkey-robot.com"))
     (is (= (get cfg "source") "http://www.reddit.com/user/%s/about.json"))
     (is (= (get cfg "records") "users._id"))
     (is (= (count data) 2))
@@ -34,7 +34,7 @@
         data (get cfg "data")]
     (is (= (get cfg "database") "chameleon"))
     (is (= (get cfg "collection") "samples"))
-    (is (= (get cfg "user-agent") "whitman/0.1.0-SNAPSHOT"))
+    (is (= (get cfg "user-agent") "whitman/1.0.0"))
     (is (= (get cfg "source") "http://api.stackexchange.com/2.2/users/%s?site=stackoverflow"))
     (is (= (get cfg "records") "users._id:int"))
     (is (= (count data) 1))

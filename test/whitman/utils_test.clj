@@ -11,7 +11,7 @@
 (def default-date (Date. default-milliseconds))
 
 (deftest test-version
-  (is (= utils/version "0.1.0-SNAPSHOT")))
+  (is (= utils/version "1.0.0")))
 
 (deftest test-utcnow
   (let [now (utils/utcnow)
