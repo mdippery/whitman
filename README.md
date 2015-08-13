@@ -56,6 +56,11 @@ required):
     <th>Default</th>
   </tr>
   <tr>
+    <td><code>connection</code></td>
+    <td>Host and port number of MongoDB server</td>
+    <td><code>localhost:27017</code></td>
+  </tr>
+  <tr>
     <td><code>database</code></td>
     <td>MongoDB database name</td>
     <td><em>Required</em></td>
