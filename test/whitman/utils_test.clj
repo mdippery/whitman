@@ -10,8 +10,10 @@
 (def default-seconds (quot default-milliseconds 1000))
 (def default-date (Date. default-milliseconds))
 
+(def version (-> "project.clj" slurp read-string (nth 2)))
+
 (deftest test-version
-  (is (= utils/version "1.0.0")))
+  (is (= utils/version version)))
 
 (deftest test-utcnow
   (let [now (utils/utcnow)

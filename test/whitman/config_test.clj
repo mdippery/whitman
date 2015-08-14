@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [whitman.config :as config]))
 
+(def version (-> "project.clj" slurp read-string (nth 2)))
+
 (deftest test-file-extension
   (is (= (config/file-extension "about.json") "json"))
   (is (= (config/file-extension ".bashrc") ""))
@@ -20,7 +22,7 @@
         data (get cfg "data")]
     (is (= (get cfg "database") "karmanaut"))
     (is (= (get cfg "collection") "samples"))
-    (is (= (get cfg "user-agent") "karmanaut/1.0.0 by mipadi - michael@monkey-robot.com"))
+    (is (= (get cfg "user-agent") (str "karmanaut/" version " by mipadi - michael@monkey-robot.com")))
     (is (= (get cfg "source") "http://www.reddit.com/user/%s/about.json"))
     (is (= (get cfg "records") "users._id"))
     (is (= (count data) 2))
@@ -34,7 +36,7 @@
         data (get cfg "data")]
     (is (= (get cfg "database") "chameleon"))
     (is (= (get cfg "collection") "samples"))
-    (is (= (get cfg "user-agent") "whitman/1.0.0"))
+    (is (= (get cfg "user-agent") (str "whitman/" version)))
     (is (= (get cfg "source") "http://api.stackexchange.com/2.2/users/%s?site=stackoverflow"))
     (is (= (get cfg "records") "users._id:int"))
     (is (= (count data) 1))
