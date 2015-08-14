@@ -21,11 +21,11 @@
 
 (defn file-format [path]
   (case (file-extension path)
-        "ini"  :ini
-        "json" :json
-        "yaml" :yml
-        "yml"  :yml
-        nil))
+    "ini"  :ini
+    "json" :json
+    "yaml" :yml
+    "yml"  :yml
+    nil))
 
 (defmulti read-config file-format)
 (defmethod read-config :json [path]
