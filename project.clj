@@ -1,4 +1,4 @@
-(def project-version "1.0.0")
+(def project-version "1.0.1-SNAPSHOT")
 
 (defproject whitman project-version
   :description "Samples web APIs for fun and profit"
