@@ -5,11 +5,13 @@
 (def ^:private default-user-agent
   (str "whitman/" utils/version))
 
+(defn ^:private user-agent [cfg]
+  (if (contains? cfg "user-agent")
+    (format (get cfg "user-agent") utils/version)
+    default-user-agent))
+
 (defn ^:private format-config [cfg]
-  (let [user-agent (if (contains? cfg "user-agent")
-                     (format (get cfg "user-agent") utils/version)
-                     default-user-agent)]
-    (assoc cfg "user-agent" user-agent)))
+  (assoc cfg "user-agent" (user-agent cfg)))
 
 (defn file-extension [path]
   (let [dot (.lastIndexOf path ".")]
