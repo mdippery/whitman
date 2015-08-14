@@ -6,6 +6,8 @@
                       GregorianCalendar
                       TimeZone]))
 
+(def seconds-in-hour (* 60 60))
+
 (def version
   (if (.exists (io/as-file "project.clj"))
     (-> "project.clj" slurp read-string (nth 2))
@@ -32,4 +34,4 @@
   (let [mn (midnight dt)
         mnsec (seconds-since-epoch mn)
         dtsec (seconds-since-epoch dt)]
-    (quot (- dtsec mnsec) (* 60 60))))
+    (quot (- dtsec mnsec) seconds-in-hour)))
