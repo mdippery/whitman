@@ -5,7 +5,7 @@
             [whitman.db :as db]
             [whitman.utils :as utils]))
 
-(defn ^{:private true} key-component [key i]
+(defn ^:private key-component [key i]
   (nth (string/split key #"\.") i))
 
 (defn record-collection [keypath]
@@ -18,7 +18,7 @@
 (defn int-key? [keypath]
   (> (count (string/split keypath #":")) 1))
 
-(defn ^{:private true} all-records [cfg]
+(defn ^:private all-records [cfg]
   (mc/find-maps (db/db cfg) (record-collection (get cfg "records"))))
 
 (defn records [cfg]
@@ -44,17 +44,17 @@
 (defn reduce-data [data path]
   (reduce get-value data (path-components path)))
 
-(defn ^{:private true} sample-query [now user]
+(defn ^:private sample-query [now user]
   {:user user, :timestamp (utils/midnight now)})
 
-(defn ^{:private true} sample-insert [now user key sample]
+(defn ^:private sample-insert [now user key sample]
   (let [hours (utils/hours-since-midnight now)]
     {(str key "." hours) sample}))
 
-(defn ^{:private true} sample-datapoint [cfg data point user]
+(defn ^:private sample-datapoint [cfg data point user]
   (reduce-data data (get point "path")))
 
-(defn ^{:private true} sample-and-insert [now cfg data user datum]
+(defn ^:private sample-and-insert [now cfg data user datum]
   (sample-insert now user (get datum "key") (sample-datapoint cfg data datum user)))
 
 (defn sample-docs [cfg user]

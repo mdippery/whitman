@@ -5,7 +5,7 @@
 (defn source-url [cfg user]
   (format (get cfg "source") user))
 
-(defn ^{:private true} full-request [cfg user]
+(defn ^:private full-request [cfg user]
   (let [url (source-url cfg user)
         hdrs {"http.useragent" (get cfg "user-agent")}
         params {:client-params hdrs}]

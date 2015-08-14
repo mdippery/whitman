@@ -2,7 +2,7 @@
   (:require [monger.collection :as mc]
             [monger.core :as mg]))
 
-(def ^{:private true} default-db-host "localhost:27017")
+(def ^:private default-db-host "localhost:27017")
 
 (defn db-url [cfg]
   (let [host (get cfg "connection" default-db-host)
