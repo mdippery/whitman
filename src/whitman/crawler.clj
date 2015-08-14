@@ -27,8 +27,8 @@
         recs (all-records cfg)
         ids (map #(key %) recs)]
     (if (int-key? kp)
-        (map int ids)
-        ids)))
+      (map int ids)
+      ids)))
 
 (defn path-components [keypath]
   (string/split keypath #"\."))

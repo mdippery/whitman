@@ -7,15 +7,15 @@
 
 (defn ^:private format-config [cfg]
   (let [user-agent (if (contains? cfg "user-agent")
-                       (format (get cfg "user-agent") utils/version)
-                       default-user-agent)]
+                     (format (get cfg "user-agent") utils/version)
+                     default-user-agent)]
     (assoc cfg "user-agent" user-agent)))
 
 (defn file-extension [path]
   (let [dot (.lastIndexOf path ".")]
     (if (> dot 0)
-        (.substring path (+ dot 1))
-        "")))
+      (.substring path (+ dot 1))
+      "")))
 
 (defn file-format [path]
   (case (file-extension path)
