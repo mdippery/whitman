@@ -24,8 +24,7 @@
     "ini"  :ini
     "json" :json
     "yaml" :yml
-    "yml"  :yml
-    nil))
+    "yml"  :yml))
 
 (defmulti read-config file-format)
 (defmethod read-config :json [path]

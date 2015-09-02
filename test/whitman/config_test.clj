@@ -15,7 +15,7 @@
   (is (= (config/file-format "about.ini") :ini))
   (is (= (config/file-format "about.yaml") :yml))
   (is (= (config/file-format "about.yml") :yml))
-  (is (nil? (config/file-format "about.txt"))))
+  (is (thrown? IllegalArgumentException (config/file-format "about.txt"))))
 
 (deftest test-read-reddit-config
   (let [cfg (config/read-config "doc/reddit.json")
