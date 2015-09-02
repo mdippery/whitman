@@ -1,0 +1,18 @@
+#!/bin/sh
+
+function whitman_home {
+  local jar_dir
+  if [ -n "$WHITMAN_HOME" ]; then
+    jar_dir="$WHITMAN_HOME"
+  else
+    jar_dir=$(cd $(dirname $(dirname $0)) && pwd)
+    if [ -f "${jar_dir}/project.clj" ]; then
+      jar_dir="${jar_dir}/target/uberjar"
+    else
+      jar_dir="${jar_dir}/lib"
+    fi
+  fi
+  echo "$jar_dir"
+}
+
+java -jar "$(whitman_home)/whitman-standalone.jar" $*
