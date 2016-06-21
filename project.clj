@@ -5,7 +5,7 @@
   :url "https://github.com/mdippery/whitman"
   :license {:name "3-Clause BSD"
             :url "http://opensource.org/licenses/BSD-3-Clause"}
-  :dependencies [[org.clojure/clojure "1.6.0"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/data.json "0.2.6"]
                  [clj-http "2.2.0"]
                  [com.novemberain/monger "2.0.0"]]
