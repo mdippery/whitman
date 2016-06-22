@@ -8,7 +8,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/data.json "0.2.6"]
                  [clj-http "2.2.0"]
-                 [com.novemberain/monger "2.0.0"]]
+                 [com.novemberain/monger "2.1.0"]]
   :main ^:skip-aot whitman.core
   :target-path "target/%s"
   :jar-name "whitman.jar"
