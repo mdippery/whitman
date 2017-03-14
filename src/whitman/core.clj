@@ -18,4 +18,4 @@
 (defn -main [& args]
   (if (< (count args) 1)
     (exit 1 "No configuration file specified")
-    (do-crawl (config/read-config (nth args 0)) :db)))
+    (do-crawl (config/read-config (last args)) :db)))
