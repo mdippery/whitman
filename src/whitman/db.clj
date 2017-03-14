@@ -11,6 +11,3 @@
 
 (defn db [cfg]
   (-> cfg db-url mg/connect-via-uri :db))
-
-(defn insert [cfg query docs]
-  (mc/upsert (db cfg) (get cfg "collection") query docs {:upsert true}))

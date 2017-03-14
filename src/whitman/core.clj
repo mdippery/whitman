@@ -1,7 +1,8 @@
 (ns whitman.core
   (:require [whitman.config :as config]
             [whitman.crawler :as crawler]
-            [whitman.db :as db])
+            [whitman.db :as db]
+            [whitman.writer :as writer])
   (:gen-class))
 
 (defn exit [code msg]
@@ -12,7 +13,7 @@
 (defn do-crawl [cfg]
   (let [users (crawler/records cfg)
         docs (map #(crawler/sample-docs cfg %) users)]
-    (doseq [d docs] (db/insert cfg (:query d) (:insert d)))))
+    (doseq [d docs] (writer/write cfg (:query d) (:insert d)))))
 
 (defn -main [& args]
   (if (< (count args) 1)
