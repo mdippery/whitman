@@ -2,5 +2,8 @@
   (:require [monger.collection :as mc]
             [whitman.db :as db]))
 
-(defn write [cfg query docs]
+(defmulti write (fn [writer cfg query docs] writer))
+(defmethod write :db [writer cfg query docs]
   (mc/upsert (db/db cfg) (get cfg "collection") query docs {:upsert true}))
+(defmethod write :console [writer cfg query docs]
+  (println query))
