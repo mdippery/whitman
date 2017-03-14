@@ -15,7 +15,10 @@
         docs (map #(crawler/sample-docs cfg %) users)]
     (doseq [d docs] (writer/write writer cfg (:query d) (:insert d)))))
 
+(defn writer [args]
+  :db)
+
 (defn -main [& args]
   (if (< (count args) 1)
     (exit 1 "No configuration file specified")
-    (do-crawl (config/read-config (last args)) :db)))
+    (do-crawl (config/read-config (last args)) (writer args))))
