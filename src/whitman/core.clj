@@ -16,7 +16,10 @@
     (doseq [d docs] (writer/write writer cfg (:query d) (:insert d)))))
 
 (defn writer [args]
-  :db)
+  (case (nth args 0)
+    "-d"      :console
+    "--debug" :console
+    :db))
 
 (defn -main [& args]
   (if (< (count args) 1)
