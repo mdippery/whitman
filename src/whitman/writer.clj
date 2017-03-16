@@ -6,4 +6,7 @@
 (defmethod write :db [writer cfg query docs]
   (mc/upsert (db/db cfg) (get cfg "collection") query docs {:upsert true}))
 (defmethod write :console [writer cfg query docs]
-  (println query))
+  (do
+    (println query)
+    (println)
+    (println docs)))
