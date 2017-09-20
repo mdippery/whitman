@@ -10,20 +10,3 @@
   (let [cfg {"connection" "monkey-robot.com:27017"
              "database" "test"}]
     (is (= (db/db-url cfg) "mongodb://monkey-robot.com:27017/test"))))
-
-(deftest test-db-with-default
-  (let [cfg {"database" "test"}]
-    (-> cfg
-        db/db
-        nil?
-        not
-        is)))
-
-(deftest test-db-when-specified
-  (let [cfg {"connection" "monkey-robot.com:27017"
-             "database" "test"}]
-    (-> cfg
-        db/db
-        nil?
-        not
-        is)))
