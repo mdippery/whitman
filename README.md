@@ -43,7 +43,7 @@ files with [lein][lein]:
 
 #### Configuration
 
-Next, you must create the crawler configuration file. Some samples are given in
+Next, you must create the crawler configuration file. Some examples are given in
 the `doc/` directory. Configuration files are in JSON. They may contain the
 following keys (not all keys are necessary, and if they are not present in your
 configuration, defaults will be used; if a default is not specified, the key is
