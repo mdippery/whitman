@@ -1,16 +1,16 @@
 volumes:
   mongo:
 
-services:
-  app:
-    build: .
-    depends_on:
-      - mongo
+networks:
+  whitman:
 
+services:
   mongo:
     image: mongo:5
     ports:
       - 27017:27017
+    networks:
+      - whitman
     volumes:
       - mongo:/data/db
     restart: on-failure:3
