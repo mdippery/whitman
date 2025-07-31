@@ -1,0 +1,16 @@
+volumes:
+  mongo:
+
+services:
+  app:
+    build: .
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo:/data/db
+    restart: on-failure:3
