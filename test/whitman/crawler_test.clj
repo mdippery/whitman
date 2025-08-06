@@ -58,7 +58,7 @@
 (deftest test-sample-docs-with-one-datapoint
   (with-redefs [utils/utcnow (fn [] default-date)
                 http/get (fn [url params] {:body (slurp "fixtures/stackoverflow_28804.json")})]
-    (let [cfg (config/read-config "doc/stackoverflow.json")
+    (let [cfg (config/read-config "examples/stackoverflow.json")
           docs (crawler/sample-docs cfg 28804)]
       (is (= (count docs) 2))
       (is (contains? docs :query))
@@ -72,7 +72,7 @@
 (deftest test-sample-docs-with-multiple-datapoints
   (with-redefs [utils/utcnow (fn [] default-date)
                 http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
-    (let [cfg (config/read-config "doc/reddit.json")
+    (let [cfg (config/read-config "examples/reddit.json")
           docs (crawler/sample-docs cfg "mipadi")]
       (is (= (count docs) 2))
       (is (contains? docs :query))

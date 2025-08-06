@@ -7,7 +7,7 @@ ARG MONGODB_HOST=mongo:27017
 
 RUN apk update && apk add jq leiningen
 
-COPY doc /etc/whitman
+COPY examples /etc/whitman
 WORKDIR /etc/whitman
 RUN jq ". += {\"connection\": \"$MONGODB_HOST\"}" < reddit.json > reddit.json2 \
       && jq ". += {\"connection\": \"$MONGODB_HOST\"}" < stackoverflow.json > stackoverflow.json2 \

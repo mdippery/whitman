@@ -18,7 +18,7 @@
   (is (thrown? IllegalArgumentException (config/file-format "about.txt"))))
 
 (deftest test-read-reddit-config
-  (let [cfg (config/read-config "doc/reddit.json")
+  (let [cfg (config/read-config "examples/reddit.json")
         data (get cfg "data")]
     (is (= (get cfg "database") "karmanaut"))
     (is (= (get cfg "collection") "samples"))
@@ -32,7 +32,7 @@
     (is (= (get (nth data 1) "key") "comment_karma"))))
 
 (deftest test-read-stackoverflow-config
-  (let [cfg (config/read-config "doc/stackoverflow.json")
+  (let [cfg (config/read-config "examples/stackoverflow.json")
         data (get cfg "data")]
     (is (= (get cfg "database") "chameleon"))
     (is (= (get cfg "collection") "samples"))

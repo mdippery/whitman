@@ -5,16 +5,16 @@
             [whitman.config :as config]))
 
 (deftest test-reddit-source
-  (let [cfg (config/read-config "doc/reddit.json")]
+  (let [cfg (config/read-config "examples/reddit.json")]
     (is (= (client/source-url cfg "mipadi") "http://www.reddit.com/user/mipadi/about.json"))))
 
 (deftest test-stackoverflow-source
-  (let [cfg (config/read-config "doc/stackoverflow.json")]
+  (let [cfg (config/read-config "examples/stackoverflow.json")]
     (is (= (client/source-url cfg 28804) "http://api.stackexchange.com/2.2/users/28804?site=stackoverflow"))))
 
 (deftest test-request
   (with-redefs [http/get (fn [url params] {:body (slurp "fixtures/reddit_mipadi.json")})]
-    (let [cfg (config/read-config "doc/reddit.json")
+    (let [cfg (config/read-config "examples/reddit.json")
           resp (client/request cfg "mipadi")
           data (get resp "data")]
       (is (= (get resp "kind") "t2"))
