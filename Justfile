@@ -1,3 +1,8 @@
+# List all available tasks
+[private]
+default:
+  @just -l
+
 # Open up a shell into the Docker container
 sh: build
   docker run --rm -it --network=whitman_whitman --entrypoint=/bin/sh whitman
