@@ -21,10 +21,11 @@
         cal (GregorianCalendar. tz)]
     (.setTime cal now)
     ; Assumes this code won't still be in use 10 years from now
+    ; 2025-08-06: Ha! Haha! Let's bump this up to 2050, I guess.
     (is (>= (.get cal Calendar/YEAR) 2015))
-    (is (< (.get cal Calendar/YEAR) 2025))
+    (is (< (.get cal Calendar/YEAR) 2050))
     (is (>= (.getTime now) default-milliseconds))
-    (is (< (.getTime now) (+ default-milliseconds (* 1000 60 60 24 365 10))))))
+    (is (< (.getTime now) (+ default-milliseconds (* 1000 60 60 24 365 35))))))
 
 (deftest test-midnight
   (let [mn (utils/midnight default-date)
