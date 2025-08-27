@@ -5,7 +5,7 @@ FROM alpine:3.22 AS builder
 
 ARG MONGODB_HOST=mongo:27017
 
-RUN apk update && apk add jq leiningen
+RUN apk add jq leiningen
 
 COPY examples /etc/whitman
 WORKDIR /etc/whitman
@@ -24,7 +24,7 @@ RUN lein uberjar
 
 FROM alpine:3.22 AS runner
 
-RUN apk update && apk add openjdk21-jre-headless
+RUN apk add openjdk21-jre-headless
 RUN addgroup -S whitman && adduser -S whitman -G whitman
 
 USER whitman
